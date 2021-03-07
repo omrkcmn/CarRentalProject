@@ -11,24 +11,38 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-
-
-
-            CarManager carManager = new CarManager(new EfCarDal());
-
             
-            /*Console.WriteLine();
-            Console.WriteLine("EKLEME İŞLEMİ");
-            Console.WriteLine("=========================================");
+            CarInsert();
+            CarDetails();
 
-            carManager.Add(new Car {BrandId=1,ModelYear="2021",DailyPrice=120,ColorId=45,CarId=10,Description="Honda",Name="AB"});
-            */
+        }
+
+        private static void CarInsert()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Add(new Car { DailyPrice = 150, Description = "Tesla Model3", ModelYear = "2022", Name = "TS",BrandId=1,ColorId=2 });
+        }
+
+        private static void CarDetails()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            
             foreach (var item in carManager.GetCarDetails())
             {
-                Console.WriteLine(item.carName + " / " + item.brandName);
+                Console.WriteLine(item.carName + " / " + item.brandName + " / "  + item.dailyPrice);
             }
+        }
+    }
+}
 
-            /*Console.WriteLine();
+
+/*Console.WriteLine();
+Console.WriteLine("EKLEME İŞLEMİ");
+Console.WriteLine("=========================================");
+
+carManager.Add(new Car {BrandId=1,ModelYear="2021",DailyPrice=120,ColorId=45,CarId=10,Description="Honda",Name="AB"});
+*/
+/*Console.WriteLine();
             Console.WriteLine("GÜNCELLEME İŞLEMİ");
             Console.WriteLine("=========================================");
 
@@ -50,6 +64,3 @@ namespace ConsoleUI
             {
                 Console.WriteLine(item.Description);
             }*/
-        }
-    }
-}

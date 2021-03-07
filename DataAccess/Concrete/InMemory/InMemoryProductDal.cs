@@ -33,6 +33,11 @@ namespace DataAccess.Concrete.InMemory
             _cars.Remove(carToDelete);
         }
 
+        public void Delete(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Car Get(Expression<Func<Car, bool>> filter)
         {
             throw new NotImplementedException();
@@ -66,6 +71,11 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.ColorId = car.ColorId;
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ModelYear = car.ModelYear;
+        }
+
+        public void Update(int carID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

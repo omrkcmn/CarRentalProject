@@ -1,1 +1,1 @@
-Bu proje kodlama.io sitesinde verilen eğitimin projesidir.
+Bu proje kodlama.io sitesinde verilen eğitimin ödev projesidir.

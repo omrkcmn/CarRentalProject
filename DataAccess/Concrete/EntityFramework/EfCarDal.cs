@@ -13,13 +13,13 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, DatabaseContext>, ICarDal
     {
-        Car _car;
+        List<Car> _car;
         public void Delete(int carId)
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                _car = context.Cars.Where(c => c.CarId == carId).First();
-                context.Cars.Remove(_car);
+                Car carToDelete = _car.SingleOrDefault(c => c.CarId == carId);
+                context.Cars.Remove(carToDelete);
                 context.SaveChanges();
             }
         }
@@ -43,12 +43,17 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public void Update(int carID)
+        public void Update(Car carID)
         {
             using (DatabaseContext db = new DatabaseContext())
             {
-                _car = db.Cars.Where(c => c.CarId == carID).FirstOrDefault();
-                db.Cars.Update(_car);
+                Car carToUpdate = _car.SingleOrDefault(c => c.CarId == carID.CarId);
+                carToUpdate.BrandId = carID.BrandId;
+                carToUpdate.ColorId = carID.ColorId;
+                carToUpdate.DailyPrice = carID.DailyPrice;
+                carToUpdate.Description = carID.Description;
+                carToUpdate.ModelYear = carID.ModelYear;
+                carToUpdate.Name = carID.Name;
                 db.SaveChanges();
             }
         }

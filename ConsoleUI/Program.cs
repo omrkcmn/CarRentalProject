@@ -11,10 +11,16 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            
+
             CarInsert();
             CarDetails();
+            NewMethod();
+        }
 
+        private static void NewMethod()
+        {
+            CarManager update = new CarManager(new EfCarDal());
+            update.Update(new Car { BrandId = 3, CarId = 7, ColorId = 2, ModelYear = "2020", Description = "Honda 20 bin km", Name = "HN" });
         }
 
         private static void CarInsert()
@@ -22,6 +28,13 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             carManager.Add(new Car { DailyPrice = 150, Description = "Tesla Model3", ModelYear = "2022", Name = "TS",BrandId=1,ColorId=2 });
         }
+
+
+        
+
+
+
+
 
         private static void CarDetails()
         {

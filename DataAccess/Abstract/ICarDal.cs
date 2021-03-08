@@ -10,6 +10,6 @@ namespace DataAccess.Abstract
     {
         List<CarDetailDto> GetCarDetails();
         void Delete(int carId);
-        void Update(int carID);
+        void Update(Car carID);
     }
 }

@@ -13,12 +13,12 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, DatabaseContext>, ICarDal
     {
-        List<Car> _car;
+        
         public void Delete(int carId)
         {
             using (DatabaseContext context = new DatabaseContext())
             {
-                Car carToDelete = _car.SingleOrDefault(c => c.CarId == carId);
+                Car carToDelete = context.Cars.SingleOrDefault(c => c.CarId == carId);
                 context.Cars.Remove(carToDelete);
                 context.SaveChanges();
             }
@@ -30,24 +30,34 @@ namespace DataAccess.Concrete.EntityFramework
             using (DatabaseContext context = new DatabaseContext())
             {
                 var result = from c in context.Cars
-                             join p in context.Brands
+                             join brand in context.Brands
+                             on c.BrandId equals brand.BrandId
+                             join color in context.Colors
+                             on c.ColorId equals color.ColorId
+                             
+                             /*join p in context.Brands
                              on c.BrandId equals p.Id
+                             //join color in context.Colors
+                             //on c.ColorId equals color.Id*/
                              select new CarDetailDto
                              {
                                  brandName = c.Name,
                                  CarId = c.CarId,
                                  dailyPrice = c.DailyPrice,
+                                 description = c.Description,
+                                 carName = c.Name,
+                                 colorName = color.Name
                                  
                              };
                 return result.ToList();
             }
         }
 
-        public void Update(Car carID)
+        public new void Update(Car carID)
         {
             using (DatabaseContext db = new DatabaseContext())
             {
-                Car carToUpdate = _car.SingleOrDefault(c => c.CarId == carID.CarId);
+                Car carToUpdate = db.Cars.SingleOrDefault(c => c.CarId == carID.CarId);
                 carToUpdate.BrandId = carID.BrandId;
                 carToUpdate.ColorId = carID.ColorId;
                 carToUpdate.DailyPrice = carID.DailyPrice;

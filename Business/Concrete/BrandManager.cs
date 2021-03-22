@@ -11,7 +11,7 @@ namespace Business.Concrete
         Brand _brand;
         public void Add(Brand brand)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void Delete(int brandId)

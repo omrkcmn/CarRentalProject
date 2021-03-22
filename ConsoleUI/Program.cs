@@ -11,15 +11,60 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-
-            CarInsert();
+            //CarInsert();
 
             //UpdateCar();
 
-            
+
             //Delete();
 
-            CarDetails();
+            //CarDetails();
+
+            //UserAdd();
+            //GetUsers();
+            //RentCar();
+            RentView();
+            ReturnCar();
+        }
+
+        private static void ReturnCar()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine(rentalManager.Update(new Rental { Id=5, ReturnDate = DateTime.Now }));
+        }
+
+        private static void RentView()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetRentDetails();
+            Console.WriteLine("Kiralayan");
+            foreach (var item in result.Data)
+            {
+                Console.WriteLine(item.carDescription + " " + item.userName + " " + item.userLastName + " " + item.rentDate);
+            }
+        }
+
+        private static void RentCar()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine(rentalManager.Add(new Rental { CarId = 10, CustomerId = 2, RentDate = DateTime.Now,ReturnDate=null}));
+        }
+
+
+
+        private static void GetUsers()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            foreach (var item in userManager.GetAll().Data)
+            {
+                Console.WriteLine(item.FirstName + " " + item.LastName);
+            }
+        }
+
+        private static void UserAdd()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { FirstName = "Ahmet Sefa", LastName = "Çelik", Email = "asc@yahoo.com", Password = "asç" });
         }
 
         private static void Delete()
@@ -38,10 +83,10 @@ namespace ConsoleUI
         private static void CarInsert()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            carManager.Add(new Car { DailyPrice = 150, Description = "Tesla Model Y", ModelYear = "2020", Name = "TS",BrandId=1,ColorId=3 });
+            carManager.Add(new Car { DailyPrice = 150, Description = "Toros Araç", ModelYear = "1956", Name = "TR",BrandId=1,ColorId=3 });
         }
 
-
+        /*
         private static void CarDetails()
         {
             CarManager carManager = new CarManager(new EfCarDal());
@@ -50,6 +95,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(item.CarId + " / " + item.brandName + " / "  + item.description + " / " +item.colorName);
             }
-        }
+        }*/
     }
 }

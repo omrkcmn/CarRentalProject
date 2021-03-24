@@ -1,1 +1,1 @@
-Bu proje kodlama.io sitesinde verilen eğitimin ödev projesidir.
+SOLID prensipleri kullanılarak geliştirdiğim Araç Kiralama Projesi'nin Back End kısmı. 

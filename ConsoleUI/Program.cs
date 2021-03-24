@@ -24,13 +24,13 @@ namespace ConsoleUI
             //GetUsers();
             //RentCar();
             RentView();
-            ReturnCar();
+            //ReturnCar();
         }
 
         private static void ReturnCar()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            Console.WriteLine(rentalManager.Update(new Rental { Id=5, ReturnDate = DateTime.Now }));
+            Console.WriteLine(rentalManager.Update(new Rental { Id=5, RentDate = DateTime.Now, ReturnDate = DateTime.Now }).ToString());
         }
 
         private static void RentView()

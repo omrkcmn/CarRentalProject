@@ -22,9 +22,6 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            //eğer tarih boş değiilse kirala
-            //ha dönüş tarihi boş sa ki araba gelmemiş demek
-            //error ver
             var result = _rentDal.GetAll(r => r.CarId == rental.CarId).Last();
             
             if (result.ReturnDate != null)

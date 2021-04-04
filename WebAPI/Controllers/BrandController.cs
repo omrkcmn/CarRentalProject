@@ -11,19 +11,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class BrandController : ControllerBase
     {
-        IRentalService _rentalService;
+        IBrandService _brandService;
 
-        public RentalsController(IRentalService rentalService)
+        public BrandController(IBrandService brandService)
         {
-            _rentalService = rentalService;
+            _brandService = brandService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _rentalService.GetAll();
+            var result = _brandService.GetAll();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -31,22 +31,10 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("getrentdetail")]
-        public IActionResult GetRentDetail()
+        [HttpGet("getbranddetail")]
+        public IActionResult GetBrandDetail(int id)
         {
-            var result = _rentalService.GetRentDetails();
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
-        }
-
-
-        [HttpPost("addrent")]
-        public IActionResult AddRent(Rental rental)
-        {
-            var result = _rentalService.Add(rental);
+            var result = _brandService.GetAllById(id);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -54,20 +42,10 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("updaterent")]
-        public IActionResult UpdateRent(Rental rental)
+        [HttpPost("addbrand")]
+        public IActionResult AddBrand(Brand brand)
         {
-            var result = _rentalService.Update(rental);
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
-        [HttpPost("deleterent")]
-        public IActionResult DeleteRent(Rental rental)
-        {
-            var result = _rentalService.Delete(rental);
+            var result = _brandService.Add(brand);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -75,5 +53,26 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        [HttpPost("updatebrand")]
+        public IActionResult UpdateBrand(Brand brand)
+        {
+            var result = _brandService.Update(brand);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("deletebrand")]
+        public IActionResult DeleteBrand(Brand brand)
+        {
+            var result = _brandService.Delete(brand);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

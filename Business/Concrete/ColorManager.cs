@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -6,31 +9,35 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class ColorManager : IBrandService
+    public class ColorManager : IColorService
     {
-        public void Add(Brand brand)
+        IColorDal _colorDal;
+        public IResult Add(Color color)
         {
-            throw new NotImplementedException();
+            _colorDal.Add(color);
+            return new SuccessResult();
         }
 
-        public void Delete(int brandId)
+        public IResult Delete(Color color)
         {
-            throw new NotImplementedException();
+            _colorDal.Delete(color);
+            return new SuccessResult();
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            throw new NotImplementedException();
+            return new DataResult<List<Color>>(_colorDal.GetAll(), true, Messages.UserAdded);
         }
 
-        public Brand GetAllById()
+        public IDataResult<List<Color>> GetAllById(int id)
         {
-            throw new NotImplementedException();
+            return new DataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == id), true, Messages.ProductListed);
         }
 
-        public void Update(int BrandId)
+        public IResult Update(Color color)
         {
-            throw new NotImplementedException();
+            _colorDal.Update(color);
+            return new SuccessResult();
         }
     }
 }

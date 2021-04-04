@@ -11,19 +11,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class ColorController : ControllerBase
     {
-        IRentalService _rentalService;
+        IColorService _colorservice;
 
-        public RentalsController(IRentalService rentalService)
+        public ColorController(IColorService colorservice)
         {
-            _rentalService = rentalService;
+            _colorservice = colorservice;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _rentalService.GetAll();
+            var result = _colorservice.GetAll();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -31,22 +31,10 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("getrentdetail")]
-        public IActionResult GetRentDetail()
+        [HttpGet("getcolordetail")]
+        public IActionResult GetColorDetail(int id)
         {
-            var result = _rentalService.GetRentDetails();
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
-        }
-
-
-        [HttpPost("addrent")]
-        public IActionResult AddRent(Rental rental)
-        {
-            var result = _rentalService.Add(rental);
+            var result = _colorservice.GetAllById(id);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -54,20 +42,10 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("updaterent")]
-        public IActionResult UpdateRent(Rental rental)
+        [HttpPost("addcolor")]
+        public IActionResult AddBrand(Color color)
         {
-            var result = _rentalService.Update(rental);
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
-        [HttpPost("deleterent")]
-        public IActionResult DeleteRent(Rental rental)
-        {
-            var result = _rentalService.Delete(rental);
+            var result = _colorservice.Add(color);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -75,5 +53,26 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        [HttpPost("updatecolor")]
+        public IActionResult UpdateBrand(Color color)
+        {
+            var result = _colorservice.Update(color);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("deletecolor")]
+        public IActionResult DeleteBrand(Color color)
+        {
+            var result = _colorservice.Delete(color);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

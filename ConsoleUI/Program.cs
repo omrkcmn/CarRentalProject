@@ -23,10 +23,10 @@ namespace ConsoleUI
             //UserAdd();
             //GetUsers();
             //RentCar();
-            RentView();
+            //RentView();
             //ReturnCar();
         }
-
+        /*
         private static void ReturnCar()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());

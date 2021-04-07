@@ -38,16 +38,3 @@ namespace DataAccess.Concrete.EntityFramework
         }
     }
 }
-    
-    
-    
-    
-    
-    /*
-
-select users.firstName, users.lastName, cars.Name, 
-cars.Description, rentals.rentDate, rentals.returnDate from cars
-inner join rentals on cars.CarId = Rentals.carId
-inner join customers on Customers.id = rentals.customerId
-inner join users on users.Id = Customers.userId
-    */

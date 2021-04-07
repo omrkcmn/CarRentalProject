@@ -18,5 +18,9 @@ namespace Business.Constants
         public static string UserUpdated = "Kullanıcı güncellendi";
         public static string CarRented = "Araç kiralandı";
         public static string CarRentError = "Araç kirada";
+
+        public static string ImageAdded = "Resim eklendi";
+
+        public static string MaxImageError = "Bir araç en fazla beş resme sahip olabilri.";
     }
 }

@@ -8,8 +8,8 @@ EntityFramework Core
 Autofac
 FluentValidation
 MsSql
-
-###Teknik
+</br>
+### Teknik
 Katmanlı Mimari
 AOP
 JWT

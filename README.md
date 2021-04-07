@@ -16,6 +16,7 @@ MsSql
 
 </br>
 ### Teknik
+
 Katmanlı Mimari
 
 AOP

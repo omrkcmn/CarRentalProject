@@ -23,7 +23,7 @@ namespace Business.Concrete
         }
         public IResult Add(IFormFile file, CarImage carImage)
         {
-            var result = BusinessRules.Run(CheckOfImageCount(carImage.CarId));
+            var result = BusinessRules.Run(CheckImageRestriction(carImage.CarId));
             if (result != null)
             {
                 return result;
@@ -61,10 +61,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ImageAdded);
         }
 
-        private IResult CheckOfImageCount(int id)
+        private IResult CheckImageRestriction(int id)
         {
             var carImageCount = _carImageDal.GetAll(p => p.CarId == id).Count;
-            if (carImageCount >= 5)
+            if (carImageCount > 5)
             {
                 return new ErrorResult();
             }

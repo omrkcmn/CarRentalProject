@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities;
 using Core.Utilities.Business;
+using Core.Utilities.Helper;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -20,66 +21,57 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
-        public IResult Add(CarImage carImage)
+        public IResult Add(IFormFile file, CarImage carImage)
         {
-            IResult result = BusinessRules.Run(CheckMaxImageNumberByCarId(carImage.CarId));
-
-            if(carImage.ImagePath != null)
-            {
-                string prefix = Guid.NewGuid().ToString();
-                Bitmap b = new Bitmap(carImage.ImagePath);
-                b.Save(@"F:\VisualProjects\CarRentalProject\IMAGES\" + prefix + ".jpg");
-                carImage.ImagePath = @"F:\VisualProjects\CarRentalProject\IMAGES\" + prefix + ".jpg";
-                carImage.Date = DateTime.Now;
-            }
-            else
-            {
-                carImage.ImagePath = @"E:\PROFIL.png";
-            }
+            var result = BusinessRules.Run(CheckOfImageCount(carImage.CarId));
             if (result != null)
             {
-                  return result;
+                return result;
             }
+
+            carImage.ImagePath = FileHelper.Add(file);
+            carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
-            return new SuccessResult();
+            return new SuccessResult(Messages.ImageAdded);
         }
 
         public IResult Delete(CarImage carImage)
         {
+            FileHelper.Delete(carImage.ImagePath);
             _carImageDal.Delete(carImage);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UserDeleted);
         }
 
         public IDataResult<List<CarImage>> GetAll()
         {
-            return new DataResult<List<CarImage>>(_carImageDal.GetAll(), true, Messages.ImageAdded);
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.ImageAdded);
+
         }
 
-        public IDataResult<List<CarImage>> GetAllByCarId(int id)
+        public IDataResult<List<CarImage>> GetByCarId(int id)
         {
-            return new DataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id),true);
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id));
         }
 
-        public IResult Update(CarImage carImage)
+        public IResult Update(IFormFile file, CarImage carImage)
         {
-            string prefix = Guid.NewGuid().ToString();
-            Bitmap b = new Bitmap(carImage.ImagePath);
-            b.Save(@"F:\VisualProjects\CarRentalProject\IMAGES\" + prefix + ".jpg");
-            carImage.ImagePath = @"F:\VisualProjects\CarRentalProject\IMAGES\" + prefix + ".jpg";
+            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(c => c.CarId == carImage.CarId).ImagePath, file);
             carImage.Date = DateTime.Now;
-
             _carImageDal.Update(carImage);
-            return new SuccessResult(); 
+            return new SuccessResult(Messages.ImageAdded);
         }
 
-        private IResult CheckMaxImageNumberByCarId(int carId)
+        private IResult CheckOfImageCount(int id)
         {
-            var result = _carImageDal.GetAll(c=>c.CarId == carId).Count;
-            if(result > 5)
+            var carImageCount = _carImageDal.GetAll(p => p.CarId == id).Count;
+            if (carImageCount >= 5)
             {
-                return new ErrorResult(Messages.MaxImageError);
+                return new ErrorResult();
             }
+
             return new SuccessResult();
         }
+
     }
 }
+

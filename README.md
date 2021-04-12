@@ -15,6 +15,7 @@ FluentValidation
 MsSql
 
 </br>
+
 ### Teknik
 
 Katmanlı Mimari

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,5 +23,7 @@ namespace Business.Constants
         public static string ImageAdded = "Resim eklendi";
 
         public static string MaxImageError = "Bir araç en fazla beş resme sahip olabilri.";
+
+        public static string UserNotFound = "Kullanıcı bulunamadı.";
     }
 }

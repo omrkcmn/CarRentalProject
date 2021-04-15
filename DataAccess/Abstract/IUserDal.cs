@@ -9,5 +9,6 @@ namespace DataAccess.Abstract
     public interface IUserDal : IEntityRepository<User>
     {
         List<CarDetailDto> GetUserDetails();
+        List<OperationClaim> GetClaims(User user);
     }
 }

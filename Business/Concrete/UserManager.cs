@@ -5,6 +5,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -38,9 +39,19 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(m => m.Email == email);
+        }
+
         public IDataResult<List<User>> GetUserById(int id)
         {
-            throw new NotImplementedException();
+            return new DataResult<List<User>>(_userDal.GetAll(u => u.Id == id), true, "Kullanıcı listelendi");
         }
 
         public IResult Update(User user)

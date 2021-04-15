@@ -12,9 +12,9 @@ namespace Business.Abstract
         IResult Add(User user);
         IResult Update(User user);
         IResult Delete(User user);
-
+        User GetByMail(string email);
+        List<OperationClaim> GetClaims(User user);
         IDataResult<List<User>> GetUserById(int id);
         IDataResult<List<User>> GetCarByRentUserId(int id);
-
     }
 }

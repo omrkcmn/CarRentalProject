@@ -1,6 +1,7 @@
 ﻿using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -25,5 +26,15 @@ namespace Business.Constants
         public static string MaxImageError = "Bir araç en fazla beş resme sahip olabilri.";
 
         public static string UserNotFound = "Kullanıcı bulunamadı.";
+
+        public static string TokenCreated = "Token oluştu";
+        public static string UserAlreadyExist = "Kullanıcı zaten mevcut";
+        public static string SuccessfulLogin = "Giriş başarılı";
+        public static string Login = "Giriş yapıldı";
+        public static string Registered = "Kayıt gerçekleşti";
+
+        public static string AuthorizationDenied = "Erişim engellendi!";
+
+        public static string RentalReturnDateIsNull = "Araç geri getirilmemmiş!";
     }
 }

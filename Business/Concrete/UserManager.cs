@@ -51,7 +51,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetUserById(int id)
         {
-            return new DataResult<List<User>>(_userDal.GetAll(u => u.Id == id), true, "Kullanıcı listelendi");
+            return new DataResult<List<User>>(_userDal.GetAll(u => u.Id == id), true, Messages.UserListed);
         }
 
         public IResult Update(User user)

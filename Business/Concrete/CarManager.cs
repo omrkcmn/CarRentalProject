@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
@@ -23,18 +25,20 @@ namespace Business.Concrete
         }
         
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("car.add,admin")]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(Messages.ProductAdded);
         }
-
+        [SecuredOperation("car.delete,admin")]
         public IResult Delete(Car carId)
         {
             _carDal.Delete(carId);
             return new SuccessResult(Messages.ProductDeleted);
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new DataResult<List<Car>>(_carDal.GetAll(),true,Messages.ProductListed);
@@ -54,7 +58,7 @@ namespace Business.Concrete
         {
             return new DataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id).ToList(),true,Messages.ProductListed);
         }
-
+        [SecuredOperation("car.update,admin")]
         public IResult Update(Car carID)
         {
            _carDal.Update(carID);

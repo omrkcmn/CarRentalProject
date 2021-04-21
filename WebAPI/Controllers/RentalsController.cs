@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        [Authorize(Roles = "Rental.List")]
+        
         public IActionResult GetAll()
         {
             var result = _rentalService.GetAll();
@@ -34,6 +34,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getrentdetail")]
+        
         public IActionResult GetRentDetail()
         {
             var result = _rentalService.GetRentDetails();
@@ -46,6 +47,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("addrent")]
+
         public IActionResult AddRent(Rental rental)
         {
             var result = _rentalService.Add(rental);

@@ -13,7 +13,7 @@ namespace Entities.DTOs
         public string brandName { get; set; }
         public string description { get; set; }
         public decimal dailyPrice { get; set; }
-        
 
+        public string imagePath { get; set; }
     }
 }

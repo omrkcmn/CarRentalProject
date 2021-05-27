@@ -38,17 +38,18 @@ namespace Business.Concrete
             _carDal.Delete(carId);
             return new SuccessResult(Messages.ProductDeleted);
         }
-        [CacheAspect]
-        public IDataResult<List<Car>> GetAll()
-        {
-            return new DataResult<List<Car>>(_carDal.GetAll(),true,Messages.ProductListed);
-        }
 
+        [CacheAspect]
+        public IDataResult<List<CarDetail2Dto>> GetAll()
+        {
+            return new DataResult<List<CarDetail2Dto>>(_carDal.GetAll(),true,Messages.ProductListed);
+        }
+        [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new DataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),true,Messages.ProductListed);
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             return new DataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id).ToList(),true,Messages.ProductListed);
@@ -58,7 +59,9 @@ namespace Business.Concrete
         {
             return new DataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id).ToList(),true,Messages.ProductListed);
         }
+
         [SecuredOperation("car.update,admin")]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Update(Car carID)
         {
            _carDal.Update(carID);

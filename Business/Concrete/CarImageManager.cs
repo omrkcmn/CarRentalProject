@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspect.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities;
 using Core.Utilities.Business;
 using Core.Utilities.Helper;
@@ -23,7 +24,7 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        [SecuredOperation("image.add,admin")]
+        //[SecuredOperation("image.add,admin")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var result = BusinessRules.Run(CheckImageRestriction(carImage.CarId));
@@ -44,13 +45,15 @@ namespace Business.Concrete
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.UserDeleted);
         }
-        [SecuredOperation("image.getall,admin")]
+        
+        //[SecuredOperation("image.getall,admin")]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.ImageAdded);
 
         }
-
+        
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetByCarId(int id)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id));

@@ -18,29 +18,29 @@ namespace Business.Concrete
             _brand = brandDal;
         }
 
-        [SecuredOperation("brand.add,admin")]
+        //[SecuredOperation("brand.add,admin")]
         public IResult Add(Brand brand)
         {
             _brand.Add(brand);
             return new SuccessResult();
         }
-        [SecuredOperation("brand.delete,admin")]
+        //[SecuredOperation("brand.delete,admin")]
         public IResult Delete(Brand brandId)
         {
             _brand.Delete(brandId);
             return new SuccessResult();
         }
-        [SecuredOperation("brand.getall,admin")]
+        //[SecuredOperation("brand.getall,admin")]
         public IDataResult<List<Brand>> GetAll()
         {
-            return new DataResult<List<Brand>>(_brand.GetAll(), true, Messages.UserListed);
+            return new SuccessDataResult<List<Brand>>(_brand.GetAll());
         }
         //[SecuredOperation("brand.getallbyid,admin")]
         public IDataResult<List<Brand>> GetAllById(int id)
         {
             return new DataResult<List<Brand>>(_brand.GetAll(b => b.BrandId == id), true, Messages.UserListed);
         }
-        [SecuredOperation("brand.update,admin")]
+        //[SecuredOperation("brand.update,admin")]
         public IResult Update(Brand BrandId)
         {
             _brand.Update(BrandId);
